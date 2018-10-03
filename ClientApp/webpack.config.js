@@ -8,12 +8,18 @@ module.exports = (env = {}, argv = {}) => {
     const config = {
         mode: argv.mode || 'development', // we default to development when no 'mode' arg is passed
         entry: {
-            main: './js/main.js'
+            main: './js/main.js',
+            classic_jquery: './js/classic-jquery.js',
+            react_notes: './js/react-notes.tsx'
         },
         output: {
             filename: '[name].js',
             path: path.resolve(__dirname, '../wwwroot/dist'),
             publicPath: "/dist/"
+        },
+        resolve: {
+            // Add `.ts` and `.tsx` as a resolvable extension.
+            extensions: [".ts", ".tsx", ".js"]
         },
         plugins: [
             new MiniCssExtractPlugin({
@@ -28,9 +34,18 @@ module.exports = (env = {}, argv = {}) => {
                         isProd ? MiniCssExtractPlugin.loader : 'style-loader',
                         'css-loader'
                     ]
+                },
+                {
+                    test: /\.tsx?$/,
+                    use: 'awesome-typescript-loader',
+                    exclude: /node_modules/
                 }
             ]
         }
+    }
+
+    if (!isProd) {
+        config.devtool = 'eval-source-map';
     }
 
     return config;

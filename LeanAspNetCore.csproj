@@ -3,7 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ClientAppFolder>ClientApp</ClientAppFolder>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\js\react-notes.tsx" />
+    <None Remove="ClientApp\js\react-notes\App.tsx" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
@@ -15,6 +21,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\js\react-notes.tsx" />
+    <TypeScriptCompile Include="ClientApp\js\react-notes\App.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Pages\ReactNotes.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Shared\_ClassicLayout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Pages\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
